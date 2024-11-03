@@ -1,6 +1,0 @@
-@Big2cpp_HostAddress = http://localhost:5057
-
-GET {{Big2cpp_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

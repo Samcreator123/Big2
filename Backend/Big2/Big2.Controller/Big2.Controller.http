@@ -1,0 +1,6 @@
+@Big2.Controller_HostAddress = http://localhost:5270
+
+GET {{Big2.Controller_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
