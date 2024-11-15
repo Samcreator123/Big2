@@ -1,4 +1,6 @@
-﻿namespace Big2.Domain.Service.Rules;
+﻿using Big2.Domain.Extension;
+
+namespace Big2.Domain.Service.Rules;
 
 public class FullHouse : IValidHandRule
 {

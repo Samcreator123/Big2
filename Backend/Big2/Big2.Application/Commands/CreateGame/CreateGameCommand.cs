@@ -1,6 +1,6 @@
 ﻿namespace Big2.Application.Commands.CreateGame;
 
-public class CreateGameCommand : IRequest<bool>
+public class CreateGameCommand : IRequest
 {
     public required string GameName { get; init; }
 

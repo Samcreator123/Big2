@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Big2.Application\Big2.Application.csproj" />
+    <ProjectReference Include="..\Big2.Infrastructure\Big2.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

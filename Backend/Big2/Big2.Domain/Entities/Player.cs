@@ -14,8 +14,11 @@ public class Player : Entity
 
     public ValidHand CurrentHand { 
         get => _currentHand ?? throw new NullCurrentValidHandException($"該玩家 {Id} 還沒有出過牌");
-        private set => _currentHand = value;
     } 
+
+    public ValidHand? CurrentHandNullAllowed {
+        get => _currentHand;
+    }
 
     public int Score { get; private set; }
 
@@ -82,7 +85,7 @@ public class Player : Entity
 
         Cards.RemoveWhere(hand.Cards.Contains);
 
-        CurrentHand = hand;
+        _currentHand = hand;
     }
 
     public void AddScore(int score)

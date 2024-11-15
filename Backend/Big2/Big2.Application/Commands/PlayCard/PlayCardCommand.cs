@@ -1,6 +1,6 @@
 ﻿namespace Big2.Application.Commands.PlayCard;
 
-public class PlayCardCommand : IRequest<bool>
+public class PlayCardCommand : IRequest
 {
     public Guid GameId { get; init; }
 

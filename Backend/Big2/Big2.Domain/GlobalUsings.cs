@@ -5,4 +5,5 @@ global using Big2.Domain.ValueObjects;
 global using Big2.Domain.Service.Rules;
 global using Big2.Domain.Service.Scoring;
 global using Big2.Domain.SeedWorks;
+global using Big2.Domain.Extension;
 global using System.Linq;

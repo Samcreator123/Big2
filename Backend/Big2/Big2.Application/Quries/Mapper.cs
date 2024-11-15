@@ -1,4 +1,6 @@
-﻿namespace Big2.Application.Quries;
+﻿using Big2.Domain.ValueObjects;
+
+namespace Big2.Application.Quries;
 public class Mapper
 {
     public static GameViewModel MappingGameViewModel(Game game)
@@ -21,6 +23,8 @@ public class Mapper
 
     public static PlayerViewModel MappingPlayerViewModel(Player player)
     {
+        var vaildHand = player.CurrentHandNullAllowed;
+
         return new PlayerViewModel
         (
             player.Id,
@@ -28,7 +32,7 @@ public class Mapper
             player.Name,
             player.State.ToString(),
             MappingCards(player.Cards),
-            player.CurrentHand is null ? null : MappingValidHand(player.CurrentHand),
+            vaildHand is null ? null : MappingValidHand(vaildHand),
             player.Score,
             player.HasPass
         );

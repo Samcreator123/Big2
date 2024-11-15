@@ -1,8 +1,8 @@
 ﻿namespace Big2.Application.Commands.LeaveGame;
 
-public class LeaveGameHandler(IRepository<Game> repository) : IRequestHandler<LeaveGameCommand, bool>
+public class LeaveGameHandler(IRepository<Game> repository) : IRequestHandler<LeaveGameCommand>
 {
-    public async Task<bool> Handle(LeaveGameCommand request, CancellationToken cancellationToken)
+    public async Task Handle(LeaveGameCommand request, CancellationToken cancellationToken)
     {
         var game = await repository.FindById(request.GameId, cancellationToken)
                 ?? throw new NotFoundGameException($"找不到遊戲 {request.GameId}");
@@ -10,7 +10,5 @@ public class LeaveGameHandler(IRepository<Game> repository) : IRequestHandler<Le
         game.LeaveGame(request.PlayerId);
 
         await repository.Save(game, cancellationToken);
-
-        return true;
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace Big2.Application.Commands.SetNotReady;
 
-public class SetNotReadyHandler(IRepository<Player> repository) : IRequestHandler<SetNotReadyCommand, bool>
+public class SetNotReadyHandler(IRepository<Player> repository) : IRequestHandler<SetNotReadyCommand>
 {
-    public async Task<bool> Handle(SetNotReadyCommand request, CancellationToken cancellationToken)
+    public async Task Handle(SetNotReadyCommand request, CancellationToken cancellationToken)
     {
         var player = await repository.FindById(request.PlayerId, cancellationToken) ??
             throw new NotFoundPlayerException($"找不到玩家 {request.PlayerId}");
@@ -10,7 +10,5 @@ public class SetNotReadyHandler(IRepository<Player> repository) : IRequestHandle
         player.SetNotReady();
 
         await repository.Save(player, cancellationToken);
-
-        return true;
     }
 }

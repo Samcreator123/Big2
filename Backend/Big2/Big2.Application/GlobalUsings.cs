@@ -5,3 +5,4 @@ global using Big2.Domain.Exceptions;
 global using Big2.Domain.SeedWorks;
 global using Big2.Domain.ValueObjects;
 global using MediatR;
+global using Microsoft.Extensions.Logging;

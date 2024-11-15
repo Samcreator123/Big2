@@ -1,6 +1,6 @@
 ﻿namespace Big2.Application.Commands.LeaveGame;
 
-public class LeaveGameCommand : IRequest<bool>
+public class LeaveGameCommand : IRequest
 {
     public Guid GameId { get; init; }
     

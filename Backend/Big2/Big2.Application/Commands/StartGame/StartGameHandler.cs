@@ -2,9 +2,9 @@
 
 namespace Big2.Application.Commands.StartGame;
 
-public class StartGameHandler(IRepository<Game> repository) : IRequestHandler<StartGameCommand, bool>
+public class StartGameHandler(IRepository<Game> repository) : IRequestHandler<StartGameCommand>
 {
-    public async Task<bool> Handle(StartGameCommand request, CancellationToken cancellationToken)
+    public async Task Handle(StartGameCommand request, CancellationToken cancellationToken)
     {
         var game = await repository.FindById(request.GameId, cancellationToken)
             ?? throw new NotFoundGameException($"找不到遊戲 {request.GameId}");
@@ -21,7 +21,5 @@ public class StartGameHandler(IRepository<Game> repository) : IRequestHandler<St
         game.SetPlaying();
 
         await repository.Save(game, cancellationToken);
-
-        return true;
     }
 }

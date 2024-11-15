@@ -16,7 +16,7 @@ public class UnfinishedPlayerScoring
         var jokerCount = cards.Count(c => c == Card.GetJokerCard());
         var maxCardCount = cards.Count(c => c == Card.GetMaxCard());
 
-        return CalculateMultiplierByCardsCount(cards.Count) *
+        return CalculateMultiplier(cards.Count) *
             CalculateMultiplierByMonsterType(cards) *
             jokerCount *
             maxCardCount;
@@ -49,7 +49,7 @@ public class UnfinishedPlayerScoring
             .ToList();
     }
 
-    private static int CalculateMultiplierByCardsCount(int cardsCount)
+    private static int CalculateMultiplier(int cardsCount)
     {
         if (cardsCount <= 7)
         {

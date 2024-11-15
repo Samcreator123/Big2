@@ -16,7 +16,7 @@ public class Game : Entity
 
     public bool HasOtherAllPass => Players.Count(p => p.State == PlayerState.Playing) - 1 == Players.Count(p => p.HasPass);
 
-    public bool IsFirstRound => !Players.Any(p => p.CurrentHand != null);
+    public bool IsFirstRound => !Players.Any(p => p.CurrentHandNullAllowed != null);
 
     public Game(string name, bool includeJoker, int maxPlayers,
         bool playUntilLast, List<ValidHandType> allowedHandTypes)

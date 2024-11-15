@@ -1,8 +1,8 @@
 ﻿namespace Big2.Application.Commands.EndGame;
 
-public class EndGameHandler(IRepository<Game> repository) : IRequestHandler<EndGameCommand, bool>
+public class EndGameHandler(IRepository<Game> repository) : IRequestHandler<EndGameCommand>
 {
-    public async Task<bool> Handle(EndGameCommand request, CancellationToken cancellationToken)
+    public async Task Handle(EndGameCommand request, CancellationToken cancellationToken)
     {
         var game = await repository.FindById(request.GameId, cancellationToken)
             ?? throw new NotFoundGameException($"找不到遊戲 {request.GameId}");
@@ -11,7 +11,5 @@ public class EndGameHandler(IRepository<Game> repository) : IRequestHandler<EndG
         game.SetWaiting();
 
         await repository.Save(game, cancellationToken);
-
-        return true;
     }
 }

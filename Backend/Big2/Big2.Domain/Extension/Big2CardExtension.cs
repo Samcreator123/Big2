@@ -1,4 +1,4 @@
-﻿namespace Big2.Domain.ValueObjects;
+﻿namespace Big2.Domain.Extension;
 public static class Big2CardExtension
 {
     /// <summary>
