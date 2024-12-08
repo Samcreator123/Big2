@@ -18,7 +18,7 @@ public class Game : Entity
 
     public bool IsFirstRound => !Players.Any(p => p.CurrentHandNullAllowed != null);
 
-    public Game(string name, bool includeJoker, int maxPlayers,
+    public Game(Guid gameId, string name, bool includeJoker, int maxPlayers,
         bool playUntilLast, List<ValidHandType> allowedHandTypes)
     {
         if (maxPlayers < 2 || maxPlayers > 4)
@@ -26,7 +26,7 @@ public class Game : Entity
             throw new InvalidPlayerCountException("玩家必須在2~4人");
         }
 
-        Id = Guid.NewGuid();
+        Id = gameId;
         CustomSetting = new GameCustomSetting(name, includeJoker, maxPlayers, playUntilLast, allowedHandTypes);
         Players = [];
         GameState = GameState.Waiting;

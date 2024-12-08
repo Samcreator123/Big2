@@ -1,32 +1,24 @@
-
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 開啟OpenApi的文件設定，後續的AddSwaggerUI才能生成對應的Swagger UI
+builder.Services.AddOpenApiDoc();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// 處理依賴注入的物件
+builder.Services.AddApplicationServices();
 
-builder.AddApplicationServices();
+// 註冊版本控制
+builder.Services.AddApiVersioning();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseSwaggerInDevelopment();
 
 // 統一處理錯誤
 app.UseBig2ExceptionHandler();
 
-app.MapControllers();
+// 使用 Minimal APIs 風格，而非 builder.Services.AddControllers() 的控制器
+// 使用版本控制
+app.NewVersionedApi("Big2");
 
 app.Run();

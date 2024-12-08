@@ -1,5 +1,7 @@
 ﻿using Big2.Domain.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace Big2.Controller.Extension;
@@ -15,25 +17,21 @@ public static class ExceptionHandler
     {
         builder.UseExceptionHandler(appBuilder =>
         {
-            appBuilder.Run(HandlerException());
+            appBuilder.Run(async context =>
+            {
+                var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+                if (exception == null)
+                    return;
+
+                await WriteErrorResponse(context, exception);
+            });
         });
 
         return builder;
     }
 
-    private static RequestDelegate HandlerException()
-    {
-        return async context =>
-        {
-            var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-
-            if (exception == null)
-                return;
-
-            await WriteErrorResponse(context, exception);
-        };
-    }
-
+    // 需改成符合 RFC 7807 標準的回應格式
     private static async Task WriteErrorResponse(HttpContext context, Exception? exception)
     {
         (int statusCode, string errorSummary, string errMessage) = MappingException(exception);

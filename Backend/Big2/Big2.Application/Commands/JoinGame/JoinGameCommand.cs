@@ -1,8 +1,8 @@
 ﻿namespace Big2.Application.Commands.JoinGame;
 
-public class JoinGameCommand : IRequest
+public class JoinGameCommand(Guid gameId, string gamerName) : IRequest
 {
-    public required Guid GameId { get; init; }
+    public Guid GameId { get; init; } = gameId;
 
-    public required string GamerName { get; init; }
+    public string GamerName { get; init; } = gamerName;
 }

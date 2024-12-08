@@ -25,7 +25,10 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Request {RequestName} failed at {DateTime}", requestName, DateTime.UtcNow);
+            _logger.LogError(ex, "Request {RequestName} failed at {DateTime}, Parameter is {Parameters}", 
+                             requestName, 
+                             DateTime.UtcNow, 
+                             request.ToString());
             throw;
         }
     }

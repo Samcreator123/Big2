@@ -1,16 +1,21 @@
 ﻿namespace Big2.Application.Commands.CreateGame;
 
-public class CreateGameCommand : IRequest
+public class CreateGameCommand(Guid id,
+    string gameName,
+    bool includeJoker,
+    int maxPlayers,
+    bool playUntilLast,
+    List<ValidHandType> handtypes) : IRequest
 {
-    public required string GameName { get; init; }
+    public Guid Id { get; init; } = id;
 
-    public required string CreatorName { get; init; }
+    public string GameName { get; init; } = gameName;
 
-    public bool IncludeJoker { get; init; }
+    public bool IncludeJoker { get; init; } = includeJoker;
 
-    public int MaxPlayers { get; init; }
+    public int MaxPlayers { get; init; } = maxPlayers;
 
-    public bool PlayUntilLast { get; init; }
+    public bool PlayUntilLast { get; init; } = playUntilLast;
 
-    public required List<ValidHandType> Handtypes { get; init; }
+    public List<ValidHandType> Handtypes { get; init; } = handtypes;
 }
