@@ -1,6 +1,4 @@
-﻿
-
-namespace Big2.Controller.Apis.GameRooms;
+﻿namespace Big2.Controller.Apis.GameRooms;
 
 public class Rooms
 {
@@ -15,6 +13,10 @@ public class Rooms
         _rooms.Add(room);
     }
 
+    public void DeleteRoom(Guid gameId)
+    {
+        _rooms.RemoveAll(room => room.GameId == gameId);
+    }
 
     public void JoinRoom(Guid gameId, Guid playerId, string connectionId)
     {

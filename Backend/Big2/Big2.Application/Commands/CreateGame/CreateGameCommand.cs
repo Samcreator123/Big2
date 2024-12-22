@@ -5,6 +5,7 @@ public class CreateGameCommand(Guid id,
     bool includeJoker,
     int maxPlayers,
     bool playUntilLast,
+    string creatorName,
     List<ValidHandType> handtypes) : IRequest
 {
     public Guid Id { get; init; } = id;
@@ -16,6 +17,8 @@ public class CreateGameCommand(Guid id,
     public int MaxPlayers { get; init; } = maxPlayers;
 
     public bool PlayUntilLast { get; init; } = playUntilLast;
+
+    public string CreatorNmae { get; init; } = creatorName;
 
     public List<ValidHandType> Handtypes { get; init; } = handtypes;
 }

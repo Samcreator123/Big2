@@ -1,6 +1,6 @@
 ﻿namespace Big2.Application.Commands.EndGame;
 
-public class EndGameCommand : IRequest
+public class EndGameCommand(Guid gameId) : IRequest
 {
-    public required Guid GameId { get; init; }
+    public Guid GameId { get; init; } = gameId;
 }

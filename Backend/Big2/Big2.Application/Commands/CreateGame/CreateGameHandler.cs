@@ -7,6 +7,8 @@ public class CreateGameHandler(IRepository<Game> repository) : IRequestHandler<C
         Game game = new(request.Id, request.GameName, request.IncludeJoker, request.MaxPlayers,
             request.PlayUntilLast, request.Handtypes);
 
+        game.JoinGameAndGetPlayerId(request.GameName);
+
         await repository.Save(game, cancellationToken);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Big2.Domain.Entities;
+﻿
+
+namespace Big2.Domain.Entities;
 public class Game : Entity
 {
     public GameCustomSetting CustomSetting { get; init; }
@@ -37,7 +39,7 @@ public class Game : Entity
 
     }
 
-    public void JoinGame(string playerName)
+    public Guid JoinGameAndGetPlayerId(string playerName)
     {
         if (Players.Count >= CustomSetting.MaxPlayers)
         {
@@ -49,7 +51,11 @@ public class Game : Entity
             throw new GameInProgressException($"遊戲進行中，請等待下一局");
         }
 
-        Players.Add(new Player(playerName, Id));
+        Player player = new Player(playerName, Id);
+
+        Players.Add(player);
+
+        return player.Id;
     }
 
     public bool CanStart()
@@ -77,7 +83,16 @@ public class Game : Entity
     {
         if (GameState != GameState.Waiting)
         {
-            throw new InvalidGameStateException($"只有在遊戲於發牌狀態時才能開始");
+            throw new InvalidGameStateException($"只有在遊戲於等待狀態時才能開始");
+        }
+
+        var idAndCards = Deck.ShuffleAndDeal(CustomSetting.IncludeJoker, new(Players.Select(o => o.Id)));
+
+        foreach (var idAndCard in idAndCards)
+        {
+            var player = GetPlayerById(idAndCard.Key);
+
+            player.SetPlaying(idAndCard.Value);
         }
 
         GameState = GameState.Playing;
@@ -111,7 +126,7 @@ public class Game : Entity
             throw new NotFoundPlayerException($"於遊戲 {Id} 找不到玩家 {playerId}");
     }
 
-    public void ProcessCardPlay(Guid playerId, bool hasPass, List<Card> playCards)
+    public void ProcessCardPlayAndAddScoreIfPossible(Guid playerId, bool hasPass, List<Card> playCards)
     {
         Player player = GetPlayerById(playerId);
 
@@ -132,7 +147,7 @@ public class Game : Entity
         SetNextPlayer();
     }
 
-    public void SetNextPlayer()
+    private void SetNextPlayer()
     {
         if (CurrentPlayer == null)
         {
@@ -156,7 +171,7 @@ public class Game : Entity
         CurrentPlayer = Players[nextIndex];
     }
 
-    public void HandlePlayCardAction(List<Card> playCards, Player player)
+    private void HandlePlayCardAction(List<Card> playCards, Player player)
     {
         if (playCards.Count(player.Cards.Contains) != playCards.Count)
         {
